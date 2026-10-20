@@ -52,6 +52,10 @@ jobs:
           git clone "https://github.com/${GITHUB_REPOSITORY}.git" \
             -b "${GITHUB_REF_NAME}" device/samsung/d2xks
 
+      - name: Patch TWRP backlight handling
+        run: |
+          python3 device/samsung/d2xks/scripts/patch_twrp_brightness.py "$PWD"
+
       - name: Set up swap space
         uses: pierotofy/set-swap-space@master
         with:
@@ -68,6 +72,11 @@ jobs:
         run: |
           mkdir -p artifact
           cp out/target/product/d2xks/recovery.img \
+             "artifact/Star7TWRP-d2xks.img"
+          python3 device/samsung/d2xks/scripts/lzma_ramdisk.py \
+             "artifact/Star7TWRP-d2xks.img" \
+             "artifact/Star7TWRP-d2xks.img.lzma"
+          mv -f "artifact/Star7TWRP-d2xks.img.lzma" \
              "artifact/Star7TWRP-d2xks.img"
           ls -l artifact
 
