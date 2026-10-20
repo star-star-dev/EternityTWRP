@@ -52,10 +52,6 @@ jobs:
           git clone "https://github.com/${GITHUB_REPOSITORY}.git" \
             -b "${GITHUB_REF_NAME}" device/samsung/d2xks
 
-      - name: Patch TWRP backlight handling
-        run: |
-          python3 device/samsung/d2xks/scripts/patch_twrp_brightness.py "$PWD"
-
       - name: Set up swap space
         uses: pierotofy/set-swap-space@master
         with:

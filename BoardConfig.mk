@@ -97,9 +97,10 @@ TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 25500
 TW_DEFAULT_BRIGHTNESS := 12800
-# The panel keeps its backlight off after FBIOBLANK on this device, so blanking
-# goes through the backlight node instead of powering the framebuffer down.
-TW_NO_SCREEN_BLANK := true
+# The panel never restores its backlight after FBIOBLANK, so waking from a
+# blanked screen stays very dim and the brightness slider does nothing. Keep
+# the screen from blanking instead of trying to recover it.
+TW_NO_SCREEN_TIMEOUT := true
 TW_DEFAULT_LANGUAGE := zh_CN
 TW_Y_OFFSET := 130
 TW_H_OFFSET := -130
