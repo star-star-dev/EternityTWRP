@@ -38,11 +38,11 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Init TWRP manifest (twrp-12.1)
+      - name: Init TWRP manifest (twrp-11)
         run: |
           repo init --depth=1 --no-tags \
             -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git \
-            -b twrp-12.1
+            -b twrp-11
 
       - name: Sync sources
         run: repo sync -j"$(nproc --all)" --force-sync --no-clone-bundle --no-tags
