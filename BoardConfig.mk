@@ -32,10 +32,6 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery_dtbo
 
-# RAMDisk Compression
-LZMA_RAMDISK_TARGETS := recovery,boot
-BOARD_RAMDISK_USE_LZMA := true
-
 BOARD_KERNEL_CMDLINE := \
     androidboot.hardware=exynos9825 \
     androidboot.selinux=permissive
@@ -101,11 +97,6 @@ TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 25500
 TW_DEFAULT_BRIGHTNESS := 12800
-# Exynos 9825 DECON/panel does not restore its backlight after FBIOBLANK,
-# leaving the panel very dim after blank with a dead brightness slider.
-# Blank via the backlight node instead of powering the framebuffer down.
-TW_NO_SCREEN_BLANK := true
-TW_DEFAULT_LANGUAGE := zh_CN
 TW_Y_OFFSET := 130
 TW_H_OFFSET := -130
 TW_NO_REBOOT_BOOTLOADER := true
