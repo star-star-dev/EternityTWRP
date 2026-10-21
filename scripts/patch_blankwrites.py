@@ -101,7 +101,7 @@ def main(src, dst):
     hdr = bytearray(d[:2048])
     for o, v in ((8, ks), (16, len(newram)), (24, 0), (36, ps), (40, hv), (44, osv)):
         struct.pack_into("<I", hdr, o, v)
-    hdr[576:608] = image_id
+    hdr[576:608] = image_id + bytes(12)
 
     rdo = ro + page(len(newram)) * ps
     total = page(rdo + page(dtbo_size) * ps) * ps

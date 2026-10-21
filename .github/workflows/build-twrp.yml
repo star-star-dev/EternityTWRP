@@ -79,11 +79,6 @@ jobs:
              "artifact/Star7TWRP-d2xks.img.patched"
           mv -f "artifact/Star7TWRP-d2xks.img.patched" \
              "artifact/Star7TWRP-d2xks.img"
-          python3 device/samsung/d2xks/scripts/pad_image.py \
-             "artifact/Star7TWRP-d2xks.img" \
-             "artifact/Star7TWRP-d2xks.img.padded"
-          mv -f "artifact/Star7TWRP-d2xks.img.padded" \
-             "artifact/Star7TWRP-d2xks.img"
           cp device/samsung/d2xks/prebuilt/vbmeta.img \
              "artifact/vbmeta.img"
           ls -l artifact

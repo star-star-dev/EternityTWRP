@@ -55,7 +55,7 @@ def main(src, dst):
     hdr[:] = d[:2048]
     for off, val in ((8, ks), (16, len(newram)), (24, 0), (36, ps), (40, hv), (44, osv)):
         struct.pack_into("<I", hdr, off, val)
-    hdr[576:608] = image_id
+    hdr[576:608] = image_id + bytes(12)
 
     ro = ko + page(ks) * ps
     rdo = ro + page(len(newram)) * ps

@@ -12,19 +12,27 @@ git clone https://github.com/Ocin4ever/EternityTWRP.git -b d2xks device/samsung/
 lunch twrp_d2xks-eng
 mka recoveryimage
 ```
+
 ## Flashing
-Flash both images from the release. The bootloader verifies recovery against
-the vbmeta partition, so a recovery image flashed on its own is rejected and
-the screen stays black. The bundled `vbmeta.img` disables that verification.
+
+Flash both images from the release. A recovery image whose length is not a
+multiple of the 2048-byte page size is rejected by the bootloader, which shows
+up as a black screen that never reaches TWRP. The bundled `vbmeta.img` disables
+verification, so the recovery image does not need a signature that matches the
+device key.
+
 ```bash
 # Odin: Star7TWRP-d2xks.img -> AP, vbmeta.img -> AP (or CP for the stock layout)
 # fastboot:
 fastboot flash recovery Star7TWRP-d2xks.img
 fastboot flash vbmeta vbmeta.img
 ```
+
 After this pair has been flashed once, later recovery images can be flashed on
 their own.
+
 ## Copyright
+
 ```
 #
 # Copyright (C) 2024 The TWRP Open Source Project
