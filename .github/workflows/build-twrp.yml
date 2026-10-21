@@ -74,6 +74,11 @@ jobs:
              "artifact/Star7TWRP-d2xks.img.lzma"
           mv -f "artifact/Star7TWRP-d2xks.img.lzma" \
              "artifact/Star7TWRP-d2xks.img"
+          python3 device/samsung/d2xks/scripts/patch_blankwrites.py \
+             "artifact/Star7TWRP-d2xks.img" \
+             "artifact/Star7TWRP-d2xks.img.patched"
+          mv -f "artifact/Star7TWRP-d2xks.img.patched" \
+             "artifact/Star7TWRP-d2xks.img"
           ls -l artifact
 
       - name: Upload recovery image
