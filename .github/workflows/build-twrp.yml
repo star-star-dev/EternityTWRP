@@ -79,6 +79,10 @@ jobs:
              "artifact/Star7TWRP-d2xks.img.patched"
           mv -f "artifact/Star7TWRP-d2xks.img.patched" \
              "artifact/Star7TWRP-d2xks.img"
+          python3 device/samsung/d2xks/scripts/add_avb_footer.py \
+             "artifact/Star7TWRP-d2xks.img" \
+             "$PWD" \
+             external/avb/test/data/testkey_rsa4096.pem
           ls -l artifact
 
       - name: Upload recovery image
