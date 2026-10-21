@@ -1,27 +1,30 @@
 # TWRP Device Tree for Samsung Galaxy Note 10+ 5g (d2xks)
-
 ## How to build
-
 This device tree was tested and is fully compatible with [minimal-manifest-twrp](https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp).
-
 1. Set up the build environment following the instructions [here](https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp/blob/twrp-11/README.md#getting-started)
-
 2. In the root folder of the fetched repo, clone the device tree:
-
 ```bash
 git clone https://github.com/Ocin4ever/EternityTWRP.git -b d2xks device/samsung/d2xks
 ```
-
 3. To build:
-
 ```bash
 . build/envsetup.sh
 lunch twrp_d2xks-eng
 mka recoveryimage
 ```
-
+## Flashing
+Flash both images from the release. The bootloader verifies recovery against
+the vbmeta partition, so a recovery image flashed on its own is rejected and
+the screen stays black. The bundled `vbmeta.img` disables that verification.
+```bash
+# Odin: Star7TWRP-d2xks.img -> AP, vbmeta.img -> AP (or CP for the stock layout)
+# fastboot:
+fastboot flash recovery Star7TWRP-d2xks.img
+fastboot flash vbmeta vbmeta.img
+```
+After this pair has been flashed once, later recovery images can be flashed on
+their own.
 ## Copyright
-
 ```
 #
 # Copyright (C) 2024 The TWRP Open Source Project
