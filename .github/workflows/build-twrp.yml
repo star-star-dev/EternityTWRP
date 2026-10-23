@@ -52,9 +52,9 @@ jobs:
           git clone "https://github.com/${GITHUB_REPOSITORY}.git" \
             -b "${GITHUB_REF_NAME}" device/samsung/d2xks
 
-      - name: Patch the language selection so it persists
+      - name: Patch the language default and persistence
         run: |
-          python3 device/samsung/d2xks/scripts/patch_language_persist.py \
+          python3 device/samsung/d2xks/scripts/patch_language.py \
             bootable/recovery
 
       - name: Set up swap space

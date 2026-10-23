@@ -9,7 +9,7 @@ git clone https://github.com/Ocin4ever/EternityTWRP.git -b d2xks device/samsung/
 3. Apply the source patches the image depends on. The CI workflow does this
    automatically; run them by hand when building locally:
 ```bash
-python3 device/samsung/d2xks/scripts/patch_language_persist.py bootable/recovery
+python3 device/samsung/d2xks/scripts/patch_language.py bootable/recovery
 ```
 4. To build:
 ```bash
@@ -46,12 +46,14 @@ their own.
 
 ## Language
 
-The default UI language is Chinese (`TW_DEFAULT_LANGUAGE := zh_CN` in
-`BoardConfig.mk`). Selecting a different language from Settings persists across
-reboots: TWRP's `setlanguage` action only reloads the theme, and the reload
-re-reads the settings file and would otherwise discard the new choice before it
-is ever written. `scripts/patch_language_persist.py` saves the settings at the
-moment the language is applied so the choice survives.
+The UI defaults to Chinese (`TW_DEFAULT_LANGUAGE := zh_CN` in `BoardConfig.mk`).
+A fresh install and a settings file left behind by an older build both come up
+in Chinese, because TWRP only keeps the compiled default once a language has
+been chosen on purpose.
+
+Selecting another language, for example English, persists: the choice is saved
+immediately and wins over the default from then on. `scripts/patch_language.py`
+adds both behaviours to the TWRP source before the build.
 
 ## Copyright
 
