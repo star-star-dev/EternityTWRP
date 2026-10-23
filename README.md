@@ -26,18 +26,32 @@ python3 device/samsung/d2xks/scripts/lzma_ramdisk.py \
     out/target/product/d2xks/recovery.img recovery.img
 ```
 
-## Flashing
+## Releases
 
-Flash both images from the release. A recovery image whose length is not a
-multiple of the 2048-byte page size is rejected by the bootloader, which shows
-up as a black screen that never reaches TWRP. The bundled `vbmeta.img` disables
-verification, so the recovery image does not need a signature that matches the
-device key.
+Pushing a tag builds the image and publishes a release with the Odin package
+attached:
 
 ```bash
-# Odin: Star7TWRP-d2xks.img -> AP, vbmeta.img -> AP (or CP for the stock layout)
-# fastboot:
-fastboot flash recovery Star7TWRP-d2xks.img
+git tag star7-d2xks-v6 && git push origin star7-d2xks-v6
+```
+
+The release carries `Star7TWRP-d2xks-odin.tar`, a tar holding `recovery.img`
+and `vbmeta.img`.
+
+## Flashing
+
+Odin takes the release tar directly: put `Star7TWRP-d2xks-odin.tar` in AP and
+flash. The two files can also be flashed on their own.
+
+A recovery image whose length is not a multiple of the 2048-byte page size is
+rejected by the bootloader, which shows up as a black screen that never reaches
+TWRP. The bundled `vbmeta.img` disables verification, so the recovery image does
+not need a signature that matches the device key.
+
+```bash
+# Odin: Star7TWRP-d2xks-odin.tar -> AP
+# fastboot, using the images from the tar:
+fastboot flash recovery recovery.img
 fastboot flash vbmeta vbmeta.img
 ```
 
