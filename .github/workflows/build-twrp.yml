@@ -109,7 +109,9 @@ jobs:
 
       - name: Write release notes
         if: startsWith(github.ref, 'refs/tags/')
+        id: notes
         run: |
+          version="${GITHUB_REF_NAME#star7-d2xks-}"
           md5=$(md5sum artifact/Star7TWRP-d2xks-odin.tar | cut -d' ' -f1)
           {
             echo "Recovery for d2xks (SM-N976N), packaged for Odin."
@@ -124,12 +126,13 @@ jobs:
             echo
             echo "MD5: ${md5}"
           } > artifact/release-notes.md
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
 
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v3
         with:
-          name: Star7TWRP d2xks ${{ github.ref_name }}
+          name: Star7TWRP d2xks ${{ steps.notes.outputs.version }} (Odin package)
           body_path: artifact/release-notes.md
           files: artifact/Star7TWRP-d2xks-odin.tar
           generate_release_notes: true
