@@ -6,11 +6,24 @@ This device tree was tested and is fully compatible with [minimal-manifest-twrp]
 ```bash
 git clone https://github.com/Ocin4ever/EternityTWRP.git -b d2xks device/samsung/d2xks
 ```
-3. To build:
+3. Apply the source patches the image depends on. The CI workflow does this
+   automatically; run them by hand when building locally:
+```bash
+python3 device/samsung/d2xks/scripts/patch_language_persist.py bootable/recovery
+```
+4. To build:
 ```bash
 . build/envsetup.sh
 lunch twrp_d2xks-eng
 mka recoveryimage
+```
+5. Rewrite the ramdisk and skip the blanktimer backlight writes. Both scripts
+   work on the `recovery.img` the build produced:
+```bash
+python3 device/samsung/d2xks/scripts/lzma_ramdisk.py \
+    out/target/product/d2xks/recovery.img recovery.img
+python3 device/samsung/d2xks/scripts/patch_blankwrites.py \
+    recovery.img recovery.img
 ```
 
 ## Flashing
@@ -30,6 +43,15 @@ fastboot flash vbmeta vbmeta.img
 
 After this pair has been flashed once, later recovery images can be flashed on
 their own.
+
+## Language
+
+The default UI language is Chinese (`TW_DEFAULT_LANGUAGE := zh_CN` in
+`BoardConfig.mk`). Selecting a different language from Settings persists across
+reboots: TWRP's `setlanguage` action only reloads the theme, and the reload
+re-reads the settings file and would otherwise discard the new choice before it
+is ever written. `scripts/patch_language_persist.py` saves the settings at the
+moment the language is applied so the choice survives.
 
 ## Copyright
 

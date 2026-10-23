@@ -52,6 +52,11 @@ jobs:
           git clone "https://github.com/${GITHUB_REPOSITORY}.git" \
             -b "${GITHUB_REF_NAME}" device/samsung/d2xks
 
+      - name: Patch the language selection so it persists
+        run: |
+          python3 device/samsung/d2xks/scripts/patch_language_persist.py \
+            bootable/recovery
+
       - name: Set up swap space
         uses: pierotofy/set-swap-space@master
         with:
