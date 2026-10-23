@@ -10,6 +10,7 @@ git clone https://github.com/Ocin4ever/EternityTWRP.git -b d2xks device/samsung/
    automatically; run them by hand when building locally:
 ```bash
 python3 device/samsung/d2xks/scripts/patch_language.py bootable/recovery
+python3 device/samsung/d2xks/scripts/patch_brightness.py bootable/recovery
 ```
 4. To build:
 ```bash
@@ -17,13 +18,12 @@ python3 device/samsung/d2xks/scripts/patch_language.py bootable/recovery
 lunch twrp_d2xks-eng
 mka recoveryimage
 ```
-5. Rewrite the ramdisk and skip the blanktimer backlight writes. Both scripts
-   work on the `recovery.img` the build produced:
+5. Rewrite the ramdisk as LZMA. The build produces a gzip ramdisk even with
+   `BOARD_RAMDISK_USE_LZMA`, and the recovery kernel stops at the first screen
+   unless the ramdisk is LZMA:
 ```bash
 python3 device/samsung/d2xks/scripts/lzma_ramdisk.py \
     out/target/product/d2xks/recovery.img recovery.img
-python3 device/samsung/d2xks/scripts/patch_blankwrites.py \
-    recovery.img recovery.img
 ```
 
 ## Flashing

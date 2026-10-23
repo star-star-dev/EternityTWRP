@@ -52,9 +52,11 @@ jobs:
           git clone "https://github.com/${GITHUB_REPOSITORY}.git" \
             -b "${GITHUB_REF_NAME}" device/samsung/d2xks
 
-      - name: Patch the language default and persistence
+      - name: Patch the language default, persistence and brightness
         run: |
           python3 device/samsung/d2xks/scripts/patch_language.py \
+            bootable/recovery
+          python3 device/samsung/d2xks/scripts/patch_brightness.py \
             bootable/recovery
 
       - name: Set up swap space
@@ -78,11 +80,6 @@ jobs:
              "artifact/Star7TWRP-d2xks.img" \
              "artifact/Star7TWRP-d2xks.img.lzma"
           mv -f "artifact/Star7TWRP-d2xks.img.lzma" \
-             "artifact/Star7TWRP-d2xks.img"
-          python3 device/samsung/d2xks/scripts/patch_blankwrites.py \
-             "artifact/Star7TWRP-d2xks.img" \
-             "artifact/Star7TWRP-d2xks.img.patched"
-          mv -f "artifact/Star7TWRP-d2xks.img.patched" \
              "artifact/Star7TWRP-d2xks.img"
           cp device/samsung/d2xks/prebuilt/vbmeta.img \
              "artifact/vbmeta.img"

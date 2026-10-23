@@ -99,9 +99,9 @@ TW_MAX_BRIGHTNESS := 25500
 TW_DEFAULT_BRIGHTNESS := 12800
 # A 0 write to the backlight node latches the lowest luminance and this panel
 # never returns from it, so waking leaves the screen stuck at minimum
-# brightness with a dead slider. scripts/patch_blankwrites.py drops those two
-# writes in the finished image; the CRTC blank still turns the screen off and
-# the wake-up restore is untouched.
+# brightness with a dead slider. scripts/patch_brightness.py drops the backlight
+# writes in the blank path; the CRTC blank still turns the screen off and the
+# wake-up restore is untouched.
 TW_DEFAULT_LANGUAGE := zh_CN
 TW_Y_OFFSET := 130
 TW_H_OFFSET := -130
